@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STEMMate Namibia - STEM activities and session plans</title>
+<link rel="stylesheet" href="/style.css">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header>
+  <h1>STEMMate Namibia</h1>
+  <div class="bar">
+    <label class="inline" for="sim"><input type="checkbox" id="sim"> Pretend I have no internet (demo switch)</label>
+    <p id="conn" role="status" aria-live="polite" class="hint">Checking connection...</p>
+  </div>
+  <nav id="nav" aria-label="Main" hidden>
+    <button type="button" class="alt" data-go="find">Find activities</button>
+    <button type="button" class="alt" data-go="plan">Plan a session</button>
+    <button type="button" class="alt" data-go="sched">My schedule</button>
+    <button type="button" class="alt" id="logout">Log out</button>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <section id="login-view" aria-labelledby="login-h">
+    <h2 id="login-h">Log in</h2>
+    <p class="hint">Demo values (synthetic): ID demo01, password demo-pass-1.</p>
+    <p id="login-err" class="err" role="alert" hidden></p>
+    <label for="fid">Facilitator ID</label>
+    <input type="text" id="fid" autocomplete="username" value="demo01">
+    <label for="pw">Password</label>
+    <input type="password" id="pw" autocomplete="current-password">
+    <button id="login-btn" type="button">Log in</button>
+  </section>
+
+  <section id="find-view" hidden aria-labelledby="find-h">
+    <h2 id="find-h">Find activities</h2>
+    <label for="f-level">Level</label>
+    <select id="f-level"><option value="">Any level</option><option>Grade 3-5</option><option>Grade 5-7</option><option>Grade 6-8</option><option>Grade 7-9</option></select>
+    <label for="f-topic">Topic</label>
+    <select id="f-topic"><option value="">Any topic</option><option>Engineering</option><option>Science</option><option>Maths</option><option>Coding</option></select>
+    <label for="f-mats">Materials</label>
+    <select id="f-mats"><option value="">Any materials</option><option>None</option><option>Household items</option><option>Kit needed</option></select>
+    <label for="f-dur">Duration</label>
+    <select id="f-dur"><option value="">Any length</option><option value="30">Up to 30 minutes</option><option value="45">Up to 45 minutes</option><option value="60">Up to 60 minutes</option></select>
+    <label class="inline" for="f-off"><input type="checkbox" id="f-off"> Works without internet only</label>
+    <div id="results" role="region" aria-label="Search results" aria-live="polite"></div>
+    <h2>Saved on this device</h2>
+    <div id="saved"></div>
+  </section>
+
+  <section id="plan-view" hidden aria-labelledby="plan-h">
+    <h2 id="plan-h">Plan a session</h2>
+    <div id="err-summary" class="err" role="alert" tabindex="-1" hidden></div>
+    <p id="draft-note" role="status" aria-live="polite" class="hint"></p>
+    <form id="plan-form" novalidate>
+      <label for="title">Plan title</label>
+      <input type="text" id="title" maxlength="80" aria-describedby="e-title">
+      <p id="e-title" class="err" hidden></p>
+      <label for="activity">Activity</label>
+      <select id="activity" aria-describedby="e-activity"></select>
+      <p id="e-activity" class="err" hidden></p>
+      <label for="slot">Start (date and time)</label>
+      <input type="datetime-local" id="slot" aria-describedby="e-slot">
+      <p id="e-slot" class="err" hidden></p>
+      <label for="dur">Duration in minutes (10 to 180)</label>
+      <input type="number" id="dur" min="10" max="180" inputmode="numeric" aria-describedby="e-dur">
+      <p id="e-dur" class="err" hidden></p>
+      <fieldset aria-describedby="e-learners">
+        <legend>Learner group (anonymous labels only)</legend>
+        <div id="learners" class="chips"></div>
+      </fieldset>
+      <p id="e-learners" class="err" hidden></p>
+      <button id="save" type="submit">Save plan</button>
+      <button id="discard" type="button" class="alt">Discard draft</button>
+    </form>
+    <p id="result" role="status" aria-live="polite"></p>
+  </section>
+
+  <section id="sched-view" hidden aria-labelledby="sched-h">
+    <h2 id="sched-h">My schedule</h2>
+    <p id="pending" role="status" aria-live="polite" class="hint"></p>
+    <button id="retry" type="button" class="alt" hidden>Retry sync now</button>
+    <div class="tw">
+      <table id="plans">
+        <caption>Planned sessions, attendance and sync status</caption>
+        <thead><tr><th scope="col">Title</th><th scope="col">Start</th><th scope="col">Min</th><th scope="col">Learners</th><th scope="col">Attendance</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="att-panel" class="card" hidden>
+      <h3 id="att-h" tabindex="-1">Attendance</h3>
+      <div id="att-rows"></div>
+      <button id="att-save" type="button">Save attendance</button>
+      <button id="att-cancel" type="button" class="alt">Cancel</button>
+    </div>
+    <p><button id="export" type="button" class="alt">Export plans as CSV</button></p>
+    <p id="export-note" role="status" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>
